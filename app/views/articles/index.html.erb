@@ -1,0 +1,18 @@
+<% @articles.each do |article| %>
+<div class="articles">
+    <div class="article-img" style="background-image: url(<%= article['imgURL'].nil? ? image_url('no_img.png') : article['imgURL'] %>)"></div>
+    <div class="article-body">
+        <h2 class="article-title">
+            <a href="<%= article['url'] %>">
+                <%= article['title'] %>
+            </a>
+        </h2>
+        <span class="article-author"><%= article['author'] %></span>
+        <div class="article-comment">
+            
+        </div>
+    </div>
+</div>
+
+
+<% end %>

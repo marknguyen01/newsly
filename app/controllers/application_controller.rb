@@ -1,12 +1,12 @@
 require 'net/http'
 class ApplicationController < ActionController::Base
-    @apiKey = abe8542ae4914be884967744f2c79348
     def getJSON
-        url = URI.parse('https://newsapi.org/v2/top-headlines?country=us&apiKey=#{@apiKey}')
-        req = Net::HTTP::Get.new(url.to_s)
-        res = Net::HTTP.start(url.host, url.port) {|http|
-          http.request(req)
-        }
+        uri = URI.parse('https://newsapi.org/v2/top-headlines?country=us&apiKey=abe8542ae4914be884967744f2c79348')
+        http = Net::HTTP.new(uri.host, uri.port)
+        http.use_ssl = true
+        http.verify_mode = OpenSSL::SSL::VERIFY_NONE # You should use VERIFY_PEER in production
+        request = Net::HTTP::Get.new(uri.request_uri)
+        res = http.request(request)
         return JSON.parse(res.body)
     end
 end
