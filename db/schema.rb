@@ -10,14 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_24_185918) do
+ActiveRecord::Schema.define(version: 2018_10_25_014357) do
+
+  create_table "articles", id: false, force: :cascade do |t|
+    t.string "id"
+    t.string "url"
+    t.string "imgURL"
+    t.string "author"
+    t.string "title"
+    t.string "date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["id"], name: "index_articles_on_id", unique: true
+  end
 
   create_table "comments", force: :cascade do |t|
+    t.string "name"
+    t.string "text"
+    t.string "article_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "likes", force: :cascade do |t|
+    t.integer "vote", default: 0
+    t.string "article_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
