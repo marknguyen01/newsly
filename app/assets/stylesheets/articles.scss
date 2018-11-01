@@ -2,42 +2,25 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-body {
-    padding: 0 15%;
-}
 .articles {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    margin: 2em 0;
-    
-    
-    >div {
-        display: flex;
-        flex-direction: column;
+    margin: 1em 0;
+    .article-img {
+        background-position: center;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
     }
-}
-
-.article-img {
-    flex-basis: 80px;
-    height: 80px;
-    background-position: center;
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-}
-.article-body {
-    flex-basis: calc(100% - 90px);
-    margin-left: 10px;
-    word-break: break-word;
-    justify-content: center;
-}
-.article-title {
-    margin: 0;
-    a {
-      text-decoration: none;
-      color: #000;
+    .article-body {
+        word-break: break-word;
+        justify-content: center;
     }
-}
-.article-author {
-    color: rgb(120, 124, 126);
+    .article-title {
+        margin: 0;
+        a {
+          text-decoration: none;
+          color: #000;
+        }
+    }
+    .article-author {
+        color: rgb(120, 124, 126);
+    }
 }

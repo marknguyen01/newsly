@@ -1,6 +1,12 @@
-<%= @article.title %>
-<%= @article.author %>
-<%= @article.url %>
+<div class="container">
+    <div class="post-header">
+    <h5 class="text-center">
+        <a href="<%= @article.url %>"><%= @article.title %></a>
+    </h5>
+    <div class="text-center">by <%= @article.author %></div>
+</div>
 <% @comments.each do |comment| %>
 <%= comment.name %>
+<%= comment.text %>
 <% end %>
+</div>
