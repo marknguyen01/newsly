@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
-  devise_for :users
+    devise_scope :user do
+    post "/user/login" => "session#create"
+    get "/user/register" => "devise/registrations#new"
+    post "/user/register" => "devise/registrations#create"
+    get "/user/logout" => "devise/sessions#destroy"
+  end
+  # devise_for :users,  :controllers => { registrations: 'registration' }
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   get '/' => 'articles#index', :as => :articles_index
   get '/articles/:id' => 'articles#show', :as => :articles_show

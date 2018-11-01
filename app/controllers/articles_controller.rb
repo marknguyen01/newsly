@@ -8,7 +8,6 @@ class ArticlesController < ApplicationController
         generateArticles
         @articles = Article.all
     end
-    
     def createComment
         
     end
