@@ -1,15 +1,17 @@
 Rails.application.routes.draw do
-    devise_scope :user do
-    post "/user/login" => "session#create"
-    get "/user/register" => "devise/registrations#new"
-    post "/user/register" => "devise/registrations#create"
-    get "/user/logout" => "devise/sessions#destroy"
-  end
-  # devise_for :users,  :controllers => { registrations: 'registration' }
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  get '/' => 'articles#index', :as => :articles_index
-  get '/articles/:id' => 'articles#show', :as => :articles_show
-  get '/comments/:id/new' => 'comments#new'
-  post '/comments/create' => 'comments#create'
-  post '/like/create' => 'articles#like'
+    root 'articles#index'
+    
+    resources :users, only: [:new, :create]
+    get '/register', to: 'users#new'
+    post '/register', to: 'users#create'
+    
+    resources :user_sessions, only: [:create, :destroy]
+    get '/logout', to: 'user_sessions#destroy', as: :user_logout
+    get '/login', to: 'user_sessions#new', as: :user_login
+    # devise_for :users,  :controllers => { registrations: 'registration' }
+    # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+    resources :articles, only: [:show, :index] do
+        resources :comments
+        resources :upvotes, only: [:create, :destroy]
+    end
 end

@@ -1,10 +1,6 @@
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
-           attr_writer :login
-  validates :username, uniqueness: true
-  validates :email, uniqueness: true
-
+    acts_as_authentic
+    def self.find_by_username_or_email(login)
+        find_by_username(login) || find_by_email(login)
+    end
 end

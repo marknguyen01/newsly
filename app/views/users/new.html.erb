@@ -1,7 +1,6 @@
 <h2>Sign up</h2>
-<%= form_for(resource, as: resource_name, url: user_register_path) do |f| %>
-  <%= devise_error_messages! %>
-  
+<%= form_for @user do |f| %>
+
   <div class="form-group">
     <%= f.label :username %><br />
     <%= f.text_field :username, autofocus: true,  :class => "form-control" %>

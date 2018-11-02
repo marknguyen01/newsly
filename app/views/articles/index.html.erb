@@ -1,7 +1,18 @@
 <% @articles.each do |article| %>
 <div class="articles row">
+    <%if !current_user.nil? %>
+        <div class="col-1">
+        <%= form_for(article) do |f| %>
+        <%= f.hidden_field :user, value: current_user %>
+        <%= f.submit 'Upvote', class: 'upvote-submit' %>
+        <%= hidden_field_tag :article_id, article.id %>
+
+        <%= article.score %>
+        <% end %>
+        </div>
+    <% end %>
     <div class="article-img col-1" style="background-image: url(<%= article['imgURL'].nil? ? image_url('no_img.png') : article['imgURL'] %>)"></div>
-    <div class="article-body col-11">
+    <div class="article-body  <%= !current_user.nil? ? "col-10" : "col-11" %>">
         <h5 class="article-title">
             <a href="<%= article['url'] %>">
                 <%= article['title'] %>
