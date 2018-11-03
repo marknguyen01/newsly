@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
     resources :articles, only: [:show, :index] do
         resources :comments
-        resources :upvotes, only: [:create, :destroy]
+        put 'upvote', to: "articles#upvote"
+        put 'downvote', to: "articles#downvote"
     end
 end
