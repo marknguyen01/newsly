@@ -1,10 +1,30 @@
 <div class="post-header">
-<h5 class="text-center">
-    <a href="<%= @article.url %>"><%= @article.title %></a>
-</h5>
-<div class="text-center">by <%= @article.author %></div>
+  <h5 class="text-center">
+    <a href="<%= @article.url %>"><%= @article.title %></a> 
+  </h5>
+  <div class="text-center">by <%= @article.author %></div>
 </div>
-<% @comments.each do |comment| %>
-<%= comment.name %>
-<%= comment.text %>
+<div class="post-comment">
+  <% @article.comments.each do |comment| %>
+  <div class="comment">
+    <span class="comment-user">
+      <%= comment.user.username %>
+    </span>
+    <span class="comment-text">
+      <%= comment.text %>
+    </span>
+  </div>
+  <% end %>
+</div>
+
+<% if !current_user.nil? %>
+  <div class="post-form my-5">
+      <h5>Comment:</h5>
+      <%= form_for([@article, @article.comments.build]) do |f| %>
+        <div class="form-group">
+          <%= f.text_area :text, :class => "form-control", :placeholder => "Please enter your comment" %>
+        </div>
+        <%= f.submit "Post", :class => "btn btn-outline-success my-2 my-sm-0"%>
+      <% end %>
+  </div>
 <% end %>
