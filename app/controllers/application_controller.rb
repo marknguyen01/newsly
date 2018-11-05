@@ -48,35 +48,31 @@ class ApplicationController < ActionController::Base
         md5 = Digest::MD5.new
         json['articles'].each do |child|
             md5 << child['url']
-            article_id = md5.hexdigest
+            child['article_id'] = md5.hexdigest
             # check if schedule has not already been run
             if Schedule.first.nil?
-                if !Article.exists?(id: article_id)
-                    Article.create(
-                        id: article_id,
-                        url: child['url'],
-                        imgURL: child['urlToImage'],
-                        author: child['source']['name'],
-                        title: child['title'],
-                        date: child['publishedAt']
-                    )
-                    article_arr.push(article_id)
+                if !Article.exists?(id: child['article_id'])
+                    article_arr.push(create_article(child))
                 end
             else
-                if !Schedule.first.article_id.include?(article_id)
-                    Article.create(
-                        id: article_id,
-                        url: child['url'],
-                        imgURL: child['urlToImage'],
-                        author: child['source']['name'],
-                        title: child['title'],
-                        date: child['publishedAt']
-                    )
-                    article_arr.push(article_id)
+                if !Schedule.first.article_id.include?(child['article_id'])
+                    article_arr.push(create_article(child))
                 end
             end    
             md5.reset
         end
         return article_arr
+    end
+    
+    def create_article(article)
+        Article.create(
+            id: article['article_id'],
+            url: article['url'],
+            imgURL: article['urlToImage'],
+            author: article['source']['name'],
+            title: article['title'],
+            date: article['publishedAt']
+        )
+        return article['article_id']
     end
 end
