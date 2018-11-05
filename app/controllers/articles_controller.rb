@@ -5,7 +5,7 @@ class ArticlesController < ApplicationController
     end
     
     def index
-        generateArticles
+        run_schedule
         @articles = Article.all
     end
     def createComment
