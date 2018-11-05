@@ -55,14 +55,14 @@ class ApplicationController < ActionController::Base
         json = JSON.parse(res.body)
         json['articles'].each do |child|
             md5 << child['url']
-            child['article_id'] = md5.hexdigest
+            child['article_slug'] = md5.hexdigest
             # check if schedule has not already been run
             if Schedule.last.nil?
-                if !Article.exists?(id: child['article_id'])
+                if !Article.exists?(slug: child['article_slug'])
                     article_arr.push(create_article(child))
                 end
             else
-                if !Schedule.limit(5).pluck(:article_id).flatten.include?(child['article_id'])
+                if !Schedule.limit(5).pluck(:slug).flatten.include?(child['article_slug'])
                     article_arr.push(create_article(child))
                 end
             end    
@@ -72,14 +72,13 @@ class ApplicationController < ActionController::Base
     end
     
     def create_article(article)
-        Article.create(
-            id: article['article_id'],
+        return Article.create(
+            slug: article['article_slug'],
             url: article['url'],
             imgURL: article['urlToImage'],
             author: article['source']['name'],
             title: article['title'],
             date: article['publishedAt']
-        )
-        return article['article_id']
+        ).id
     end
 end

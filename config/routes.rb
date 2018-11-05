@@ -10,7 +10,7 @@ Rails.application.routes.draw do
     get '/login', to: 'user_sessions#new', as: :user_login
     # devise_for :users,  :controllers => { registrations: 'registration' }
     # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-    resources :articles, only: [:show, :index] do
+    resources :articles, only: [:show, :index], param: :slug do
         resources :comments
         put 'upvote', to: "articles#upvote"
         put 'downvote', to: "articles#downvote"

@@ -1,6 +1,6 @@
 class ArticlesController < ApplicationController
     def show
-        @article = Article.find(params[:id])
+        @article = Article.find_by(slug: params[:slug])
     end
     
     def index
@@ -11,12 +11,12 @@ class ArticlesController < ApplicationController
         
     end
     def upvote 
-      @article = Article.find(params[:article_id])
+      @article = Article.find_by(slug: params[:article_slug])
       @article.upvote_by current_user
       redirect_back(fallback_location: root_path)
     end  
     def downvote 
-      @article = Article.find(params[:article_id])
+      @article = Article.find_by(slug: params[:article_slug])
       @article.downvote_by current_user
       redirect_back(fallback_location: root_path)
     end  

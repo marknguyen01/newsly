@@ -12,8 +12,8 @@
 
 ActiveRecord::Schema.define(version: 2018_11_05_011352) do
 
-  create_table "articles", id: false, force: :cascade do |t|
-    t.string "id"
+  create_table "articles", force: :cascade do |t|
+    t.string "slug"
     t.string "url"
     t.string "imgURL"
     t.string "author"
@@ -21,7 +21,6 @@ ActiveRecord::Schema.define(version: 2018_11_05_011352) do
     t.string "date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["id"], name: "index_articles_on_id", unique: true
   end
 
   create_table "comments", force: :cascade do |t|
@@ -36,7 +35,7 @@ ActiveRecord::Schema.define(version: 2018_11_05_011352) do
   end
 
   create_table "schedules", force: :cascade do |t|
-    t.string "article_id"
+    t.text "article_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -55,10 +54,10 @@ ActiveRecord::Schema.define(version: 2018_11_05_011352) do
   end
 
   create_table "votes", force: :cascade do |t|
-    t.string "votable_type"
-    t.integer "votable_id"
     t.string "voter_type"
     t.integer "voter_id"
+    t.string "votable_type"
+    t.string "votable_id"
     t.boolean "vote_flag"
     t.string "vote_scope"
     t.integer "vote_weight"
