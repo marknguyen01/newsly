@@ -18,9 +18,9 @@ class ApplicationController < ActionController::Base
         @user_session = UserSession.new
     end
     def run_schedule
-        if !Schedule.first.nil?
+        if !Schedule.last.nil?
             dateNow = DateTime.now
-            dateBefore = DateTime.parse(Schedule.first.created_at.to_s)
+            dateBefore = DateTime.parse(Schedule.last.created_at.to_s)
             if (dateNow.to_time - dateBefore.to_time) / 60 > 15
                 article_arr = get_articles
                 Schedule.create(
@@ -50,12 +50,12 @@ class ApplicationController < ActionController::Base
             md5 << child['url']
             child['article_id'] = md5.hexdigest
             # check if schedule has not already been run
-            if Schedule.first.nil?
+            if Schedule.last.nil?
                 if !Article.exists?(id: child['article_id'])
                     article_arr.push(create_article(child))
                 end
             else
-                if !Schedule.first.article_id.include?(child['article_id'])
+                if !Schedule.last.article_id.include?(child['article_id'])
                     article_arr.push(create_article(child))
                 end
             end    

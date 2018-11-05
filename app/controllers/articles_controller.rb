@@ -6,7 +6,7 @@ class ArticlesController < ApplicationController
     
     def index
         run_schedule
-        @articles = Article.all
+        @articles = Article.limit(10)
     end
     def createComment
         
