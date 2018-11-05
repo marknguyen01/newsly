@@ -17,10 +17,12 @@ class ApplicationController < ActionController::Base
     def new_user_session
         @user_session = UserSession.new
     end
+    
     def run_schedule
         if !Schedule.last.nil?
             dateNow = DateTime.now
             dateBefore = DateTime.parse(Schedule.last.created_at.to_s)
+            # fetch api if over 15 mins
             if (dateNow.to_time - dateBefore.to_time) / 60 > 15
                 article_arr = get_articles
                 Schedule.create(
@@ -35,17 +37,22 @@ class ApplicationController < ActionController::Base
         end
     end
     def get_articles
+        # fetch api
         uri = URI.parse('https://newsapi.org/v2/top-headlines?country=us&apiKey=abe8542ae4914be884967744f2c79348')
         http = Net::HTTP.new(uri.host, uri.port)
         http.use_ssl = true
         http.verify_mode = OpenSSL::SSL::VERIFY_NONE # You should use VERIFY_PEER in production
         request = Net::HTTP::Get.new(uri.request_uri)
+        # fetch result
         res = http.request(request)
-        
-        article_arr = []
-    
-        json = JSON.parse(res.body)
+                        
+        # md5 encoder                
         md5 = Digest::MD5.new
+                
+        # array of article ids
+        article_arr = []
+        
+        json = JSON.parse(res.body)
         json['articles'].each do |child|
             md5 << child['url']
             child['article_id'] = md5.hexdigest
@@ -55,7 +62,7 @@ class ApplicationController < ActionController::Base
                     article_arr.push(create_article(child))
                 end
             else
-                if !Schedule.last.article_id.include?(child['article_id'])
+                if !Schedule.limit(5).pluck(:article_id).flatten.include?(child['article_id'])
                     article_arr.push(create_article(child))
                 end
             end    

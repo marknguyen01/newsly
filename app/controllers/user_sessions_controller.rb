@@ -2,12 +2,13 @@ class UserSessionsController < ApplicationController
   def new
     @user_session = UserSession.new
   end
-
+  
+  # create new user account
   def create
     @user_session = UserSession.new(user_session_params.to_h)
     if @user_session.save
       flash[:success] = "Welcome back!"
-      redirect_to root_path
+      redirect_back(fallback_location: root_path)
     else
       render :new
     end
