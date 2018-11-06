@@ -1,0 +1,100 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *= require_self
+ */
+@import 'bootstrap';
+@import 'variables.scss';
+
+.btn-outline-info {
+    @include button-outline-variant($colorCyan, $colorWhite, lighten($colorCyan,5%), $colorCyan);
+}
+.btn-primary {
+    @include button-variant($colorCyan, darken($colorCyan, 7.5%), darken($colorCyan, 10%), lighten($colorCyan,5%), lighten($colorCyan, 10%), 
+    darken($colorCyan,30%));
+}
+
+
+
+body {
+    @include media-breakpoint-down(md) {
+        font-size: 0.75rem !important;
+    }
+}
+
+.container, .row {
+    @include media-breakpoint-down(md) {
+        padding: 0;
+        margin: 0;
+    }
+}
+
+.articles {
+    margin: 1em 0;
+    transition: border-color 1s;
+    border: 1px solid #fff;
+    .article-body {
+        word-break: break-word;
+        justify-content: center;
+    }
+    .article-img {
+        background-position: center;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        height: 72px;
+    }
+    .article-title {
+            @include media-breakpoint-down(md) {
+}
+        margin: 0;
+        text-decoration: none;
+        color: #000;
+    }
+    .article-author {
+        color: $colorGrey;
+    }
+    &:hover {
+        border-color: $colorGrey;
+    }
+    a {
+        text-decoration: none;
+    }
+    .article-action {
+        a {
+            color: $colorRed;
+        }
+    }
+    .article-vote {
+        a {
+            color: $colorGrey;
+            transition: 1s color;
+            &:hover, &.active {
+                color: $colorRed;
+            }
+        }
+        .vote-count {
+            font-weight: bold;
+            text-align: center;
+        }
+
+    }
+}
+.page-item {
+    .page-link {
+        color: $colorCyan;
+    }
+    &.active  .page-link {
+        color: $colorWhite;
+        background-color: $colorCyan;
+        border-color: $colorCyan;
+    }
+}
+
