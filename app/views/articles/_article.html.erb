@@ -18,7 +18,7 @@
         <a href="<%= article['url'] %>" class="article-title">
             <%= article['title'] %>
         </a>
-        <div class="article-author mb-4">by <%= article['author'] %></div>
+        <div class="article-author mb-4">by <%= article['author'] %> - <%= convertDate(article['date']) %></div>
     </div>
     <div class="article-action col-auto order-md-4 offset-md-2 order-4">
         <a href="/articles/<%= article['slug'] %>"><i class="fas fa-comment-dots"></i>
