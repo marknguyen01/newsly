@@ -11,7 +11,10 @@ Rails.application.routes.draw do
     # devise_for :users,  :controllers => { registrations: 'registration' }
     # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
     resources :articles, only: [:show, :index], param: :slug do
-        resources :comments
+        resources :comments do
+            put 'upvote', to: "comments#upvote"
+            put 'downvote', to: "comments#downvote"
+        end
         put 'upvote', to: "articles#upvote"
         put 'downvote', to: "articles#downvote"
     end
