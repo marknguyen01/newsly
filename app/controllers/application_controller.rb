@@ -31,9 +31,9 @@ class ApplicationController < ActionController::Base
         end
     end
     def create_schedule
-        article_arr = get_articles
+        slug_arr = get_articles
         Schedule.create(
-            article_id: article_arr
+            article_slug: slug_arr
         )
     end
     def get_articles
@@ -50,18 +50,25 @@ class ApplicationController < ActionController::Base
         md5 = Digest::MD5.new
                 
         # array of article ids
-        article_arr = []
+        slug_arr = []
         
         json = JSON.parse(res.body)
         json['articles'].each do |child|
             md5 << child['url']
             child['article_slug'] = md5.hexdigest
-            if !Article.limit(96).exists?(slug: child['article_slug'])
-                article_arr.push(create_article(child))
-            end
+            # check if schedule has not already been run
+            if Schedule.last.nil?
+                if !Article.exists?(slug: child['article_slug'])
+                    slug_arr.push(create_article(child))
+                end
+            else
+                if !Schedule.limit(96).pluck(:article_slug).flatten.include?(child['article_slug'])
+                    slug_arr.push(create_article(child))
+                end
+            end    
             md5.reset
         end
-        return article_arr
+        return slug_arr
     end
     
     def create_article(article)
@@ -72,6 +79,6 @@ class ApplicationController < ActionController::Base
             author: article['source']['name'],
             title: article['title'],
             date: article['publishedAt']
-        ).id
+        ).slug
     end
 end

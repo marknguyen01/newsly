@@ -1,3 +1,3 @@
 class Schedule < ApplicationRecord
-    serialize :article_id, Array
+    serialize :article_slug, Array
 end
