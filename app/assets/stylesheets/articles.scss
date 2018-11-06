@@ -1,26 +1,66 @@
 // Place all the styles related to the articles controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+@import 'variables';
 
 .articles {
     margin: 1em 0;
-    .article-img {
-        background-position: center;
-        background-size: 100% 100%;
-        background-repeat: no-repeat;
-    }
+    transition: border-color 1s;
+    border: 1px solid #fff;
     .article-body {
         word-break: break-word;
         justify-content: center;
     }
+    .article-img {
+        background-position: center;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        height: 72px;
+    }
     .article-title {
         margin: 0;
-        a {
-          text-decoration: none;
-          color: #000;
-        }
+        text-decoration: none;
+        color: #000;
     }
     .article-author {
-        color: rgb(120, 124, 126);
+        color: $colorGrey;
+    }
+    &:hover {
+        border-color: $colorGrey;
+    }
+    a {
+        text-decoration: none;
+    }
+    .article-action {
+        a {
+            color: $colorRed;
+        }
+        position: absolute;
+        bottom: 0;
+    }
+    .article-vote {
+        a {
+            color: $colorGrey;
+            transition: 1s color;
+            &:hover, &.active {
+                color: $colorRed;
+            }
+        }
+        .vote-count {
+            width: 1rem;
+            font-weight: bold;
+            text-align: center;
+        }
     }
 }
+.page-item {
+    .page-link {
+        color: $colorCyan;
+    }
+    &.active  .page-link {
+        color: $colorWhite;
+        background-color: $colorCyan;
+        border-color: $colorCyan;
+    }
+}
+

@@ -62,7 +62,7 @@ class ApplicationController < ActionController::Base
                     article_arr.push(create_article(child))
                 end
             else
-                if !Schedule.limit(5).pluck(:slug).flatten.include?(child['article_slug'])
+                if !Schedule.limit(96).pluck(:slug).flatten.include?(child['article_slug'])
                     article_arr.push(create_article(child))
                 end
             end    

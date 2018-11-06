@@ -1,9 +1,4 @@
-<div class="post-header">
-  <h5 class="text-center">
-    <a href="<%= @article.url %>"><%= @article.title %></a> 
-  </h5>
-  <div class="text-center">by <%= @article.author %></div>
-</div>
+<%= render('article', :article => @article) %>
 <div class="post-comment">
   <% @article.comments.each do |comment| %>
   <div class="comment">
@@ -16,15 +11,18 @@
   </div>
   <% end %>
 </div>
-
+<span class="mt-5">Comments (<%=@article.comments.size%>)</span>
 <% if !current_user.nil? %>
-  <div class="post-form my-5">
-      <h5>Comment:</h5>
+  <div class="post-form mt-2">
       <%= form_for([@article, @article.comments.build]) do |f| %>
         <div class="form-group">
           <%= f.text_area :text, :class => "form-control", :placeholder => "Please enter your comment" %>
         </div>
-        <%= f.submit "Post", :class => "btn btn-outline-success my-2 my-sm-0"%>
+        <%= f.submit "Post", :class => "btn btn-success my-2 px-5"%>
       <% end %>
   </div>
+<% else %>
+<div class="border rounded p-3 my-3">
+  Please login or register to leave a comment
+</div>  
 <% end %>

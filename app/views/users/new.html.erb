@@ -1,4 +1,5 @@
-<h2>Sign up</h2>
+<div class="border rounded p-3 my-5">
+  <h4 class="text-center"><i class="fas fa-user-plus faa-pulse animated fa-sm mr-2"></i>Sign up</h4>
 <%= form_for @user do |f| %>
 
   <div class="form-group">
@@ -27,3 +28,4 @@
     <%= f.submit "Sign up", :class => "btn btn-primary" %>
   </div>
 <% end %>
+</div>

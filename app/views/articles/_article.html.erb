@@ -1,0 +1,27 @@
+<div class="articles row p-2">
+    <%if !current_user.nil? %>
+        <div class="col-auto article-vote">
+            <%= link_to article_upvote_path(article), class: current_user.voted_up_on?(article) ? "active" : "", method: :put do 
+            %>
+                <i class="fas fa-chevron-circle-up"></i>
+            <% end %>
+            <div class="vote-count">
+                <%= article.get_upvotes.size - article.get_downvotes.size %>
+            </div>
+            <%= link_to article_downvote_path(article), class: current_user.voted_down_on?(article) ? "active" : "", method: :put do %>
+                <i class="fas fa-chevron-circle-down"></i>
+            <% end %>
+        </div>
+    <% end %>
+    <a class="article-img col-1" href="<%= article['url'] %>" style="background-image: url(<%= article['imgURL'].nil? ? image_url('no_img.png') : article['imgURL'] %>)"></a>
+    <div class="article-body col-10">
+        <a href="<%= article['url'] %>" class="article-title">
+            <%= article['title'] %>
+        </a>
+        <span class="article-author">by <%= article['author'] %></span>
+        <div class="article-action">
+            <a href="/articles/<%= article['slug'] %>"><i class="fas fa-comment-dots"></i>
+                <%= article.comments.size %> Comments</a>
+        </div>
+    </div>
+</div>

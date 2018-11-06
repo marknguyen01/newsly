@@ -1,15 +1,21 @@
-<nav class="navbar navbar-light bg-light">
+<nav class="navbar navbar-expand-sm navbar-light bg-light">
   <div class="container">
     <a class="navbar-brand" href="/">Navbar</a>
-    <div class="justify-content-end" id="navbarSupportedContent">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <% if !current_user.nil? %>
-        <span>Logged in as <strong><%= current_user.username %></strong></span>
-        <span><a href="<%=user_logout_path%>">Logout</a></span>
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <span class="nav-link">Logged in as <strong><%= current_user.username %></strong></span>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="<%=user_logout_path%>">Logout</a>
+          </li>
+        </ul>
       <% else %>
-          <%= form_for(@user_session, :html => {:class => "form-inline my-2 my-lg-0"}) do |f| %>
+          <%= form_for(@user_session, :html => {:class => "form-inline my-2 my-lg-0 ml-auto"}) do |f| %>
               <%= f.text_field :username, autofocus: true, placeholder: "Username", :class => "form-control mr-sm-2" %>
               <%= f.password_field :password, autocomplete: "current-password", placeholder: "Password", :class => "form-control mr-sm-2" %>
-          <div class="actions my-md-3">
+          <div class="actions">
             <%= f.submit "Log in", :class => "btn btn-outline-success my-2 my-sm-0" %>
             <a href="<%= register_path %>" class="btn btn-outline-info my-2 my-sm-0 ml-1">Register</a>
           </div>
