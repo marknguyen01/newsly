@@ -13,6 +13,6 @@ class CommentsController < ApplicationController
         params.require(:comment).permit(:text)
     end
     def find_article!
-        @article = Article.find(params[:article_id])
+        @article = Article.find_by(slug: params[:article_slug])
     end
 end

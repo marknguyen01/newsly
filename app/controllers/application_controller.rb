@@ -24,17 +24,17 @@ class ApplicationController < ActionController::Base
             dateBefore = DateTime.parse(Schedule.last.created_at.to_s)
             # fetch api if over 15 mins
             if (dateNow.to_time - dateBefore.to_time) / 60 > 15
-                article_arr = get_articles
-                Schedule.create(
-                    article_id: article_arr
-                )
+                create_schedule
             end
         else
-            article_arr = get_articles
-            Schedule.create(
-                article_id: article_arr
-            )
+            create_schedule
         end
+    end
+    def create_schedule
+        article_arr = get_articles
+        Schedule.create(
+            article_id: article_arr
+        )
     end
     def get_articles
         # fetch api
@@ -56,16 +56,9 @@ class ApplicationController < ActionController::Base
         json['articles'].each do |child|
             md5 << child['url']
             child['article_slug'] = md5.hexdigest
-            # check if schedule has not already been run
-            if Schedule.last.nil?
-                if !Article.exists?(slug: child['article_slug'])
-                    article_arr.push(create_article(child))
-                end
-            else
-                if !Schedule.limit(96).pluck(:slug).flatten.include?(child['article_slug'])
-                    article_arr.push(create_article(child))
-                end
-            end    
+            if !Article.limit(96).exists?(slug: child['article_slug'])
+                article_arr.push(create_article(child))
+            end
             md5.reset
         end
         return article_arr

@@ -1,4 +1,5 @@
 <% @articles.each do |article| %>
+    <% print article %>
     <%= render('article', :article => article) %>
 <% end %>
 <%= paginate @articles %>
