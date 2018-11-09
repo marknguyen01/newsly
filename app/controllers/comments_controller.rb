@@ -51,9 +51,10 @@ class CommentsController < ApplicationController
             flash[:danger] = t('comment.vote.not_authorized')
         else
           @comment = Comment.find(params[:comment_id])
-          @comment.upvote_by current_user
-          @comment.user.increment!(:points)
-
+          if !@comment.upvote_from current_user
+            @comment.upvote_by current_user
+            @comment.user.increment!(:points)
+          end
         end
         redirect_back(fallback_location: root_path)
     end  
@@ -63,8 +64,10 @@ class CommentsController < ApplicationController
             flash[:danger] = t('comment.vote.not_authorized')
         else
           @comment = Comment.find(params[:comment_id])
-          @comment.downvote current_user
-          @comment.user.decrement!(:points)
+          if !@comment.downvote_from current_user
+            @comment.downvote_by current_user
+            @comment.user.decrement!(:points)
+          end
         end
         redirect_back(fallback_location: root_path)
     end  
