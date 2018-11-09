@@ -6,6 +6,7 @@ class CommentsController < ApplicationController
         @comment.article = @article
         if @comment.save
             @comment.upvote_by current_user
+            @comment.user.increment!(:points)
             respond_to do |format|
                 format.html do
                     flash[:success] = t('comment.create.success')
@@ -51,6 +52,8 @@ class CommentsController < ApplicationController
         else
           @comment = Comment.find(params[:comment_id])
           @comment.upvote_by current_user
+          @comment.user.increment!(:points)
+
         end
         redirect_back(fallback_location: root_path)
     end  
@@ -61,6 +64,7 @@ class CommentsController < ApplicationController
         else
           @comment = Comment.find(params[:comment_id])
           @comment.downvote current_user
+          @comment.user.decrement!(:points)
         end
         redirect_back(fallback_location: root_path)
     end  
