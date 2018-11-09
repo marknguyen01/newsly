@@ -14,3 +14,23 @@
 //= require activestorage
 //= require turbolinks
 //= require_tree .
+var quill = new Quill('#editor', {
+    modules: {
+        toolbar: [
+            ['bold', 'italic', 'underline', 'strike'],
+            ['link', 'blockquote', 'code-block'],
+            [{ list: 'ordered' }, { list: 'bullet' }]
+        ]
+    },
+    placeholder: "Enter your comment",
+    theme: 'snow'
+});
+
+var form = document.querySelector(".comment-form form");
+form.onsubmit = function() {
+  // Populate hidden form on submit
+  var text = document.querySelector('input[name="comment[text]"]');
+  text.value = quill.root.innerHTML;
+ 
+  return false;
+};

@@ -80,20 +80,24 @@ body {
             color: $colorRed;
         }
     }
-    .article-vote {
-        a {
-            color: $colorGrey;
-            transition: 1s color;
-            &:hover, &.active {
-                color: $colorRed;
-            }
+}
+.article-vote, .comment-action {
+    a {
+        color: $colorGrey;
+        transition: 1s color;
+        text-decoration: none;
+        &:hover, &.active {
+            color: $colorRed;
         }
-        .vote-count {
-            font-weight: bold;
-            text-align: center;
-        }
-
     }
+    .vote-count {
+        font-weight: bold;
+        text-align: center;
+    }
+
+}
+.comment-action > * {
+    padding-right: 1rem;
 }
 .page-item {
     .page-link {
