@@ -31,3 +31,11 @@
 
 en:
   hello: "Hello world"
+  vote:
+    not_authorized: "Please login to vote on articles."
+  comment:
+    destroy:
+      success: "Comment has been deleted!"
+    error: "Something went wrong!"  
+    vote:
+      not_authorized: "Please login to vote on comments."

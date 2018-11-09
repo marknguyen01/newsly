@@ -1,27 +1,23 @@
-<div class="articles row p-3">
-    <%if !current_user.nil? %>
-        <div class="col-auto order-3 order-md-1 col-md-1 article-vote text-left text-md-center">
-            <%= link_to article_upvote_path(article), class: "d-inline-block d-md-block " + (current_user.voted_up_on?(article) ? "active" : ""), method: :put do 
-            %>
-                <i class="fas fa-chevron-circle-up"></i>
-            <% end %>
-            <div class="vote-count d-inline-block d-md-block">
-                <%= article.get_upvotes.size - article.get_downvotes.size %>
-            </div>
-            <%= link_to article_downvote_path(article), class: "d-inline-block d-md-block " + (current_user.voted_down_on?(article) ? "active" : ""), method: :put do %>
-                <i class="fas fa-chevron-circle-down"></i>
-            <% end %>
+<div class="articles row py-3">
+    <div class="article-img col-auto text-center">
+        <a href="<%= article['url'] %>">
+            <img src="<%= article['imgURL'].nil? ? image_url('no_img.png') : article['imgURL'] %>" class="img-thumbnail">
+        </a>
+        <div class="article-vote mt-1">
+            <%= render partial: 'vote', 
+                locals: {:object => article, 
+                :upvote_path => article_upvote_path(article),
+                :downvote_path => article_downvote_path(article)} %>
         </div>
-    <% end %>
-    <a class="article-img col-4 col-md-1 order-1 order-md-2" href="<%= article['url'] %>" style="background-image: url(<%= article['imgURL'].nil? ? image_url('no_img.png') : article['imgURL'] %>)"></a>
-    <div class="article-body col-8 col-md-10 order-2 order-md-3">
+    </div>
+    <div class="article-body col">
         <a href="<%= article['url'] %>" class="article-title">
             <%= article['title'] %>
         </a>
-        <div class="article-author mb-4">by <%= article['author'] %> - <%= convertDate(article['date']) %></div>
-    </div>
-    <div class="article-action col-auto order-md-4 offset-md-2 order-4">
-        <a href="/articles/<%= article['slug'] %>"><i class="fas fa-comment-dots"></i>
-        <%= article.comments.size %> Comments</a>
+        <div class="article-author">by <%= article['author'] %> - <%= convertDate(article['date']) %></div>
+        <div class="article-action row col-12 m-0 p-0">
+            <a href="/articles/<%= article['slug'] %>"><i class="fas fa-comment-dots"></i>
+            <%= article.comments.size %> Comments</a>
+        </div>
     </div>
 </div>

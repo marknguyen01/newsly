@@ -1,28 +1,7 @@
 <%= render('article', :article => @article) %>
 <div class="article-comment">
   <% @article.comments.each do |comment| %>
-  <div class="comment">
-    <div class="comment-user">
-      <%= comment.user.username %>
-    </div>
-    <div class="comment-text">
-      <%= comment.text %>
-    </div>
-  </div>
-  <%if !current_user.nil? %>
-    <div class="comment-vote">
-        <%= link_to article_comment_upvote_path(@article, comment), class: "d-inline-block" + (current_user.voted_up_on?(comment) ? "active" : ""), method: :put do 
-        %>
-            <i class="fas fa-chevron-circle-up"></i>
-        <% end %>
-        <div class="vote-count d-inline-block">
-            <%= comment.get_upvotes.size - comment.get_downvotes.size %>
-        </div>
-        <%= link_to article_comment_downvote_path(@article, comment), class: "d-inline-block" + (current_user.voted_down_on?(comment) ? "active" : ""), method: :put do %>
-            <i class="fas fa-chevron-circle-down"></i>
-        <% end %>
-    </div>
-  <% end %>
+    <%= render('comment', :comment => comment) %>
   <% end %>
 </div>
 <span class="mt-5">Comments (<%=@article.comments.size%>)</span>

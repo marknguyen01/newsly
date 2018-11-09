@@ -4,19 +4,44 @@ class CommentsController < ApplicationController
         @comment = Comment.new(comments_params)
         @comment.user = current_user
         @comment.article = @article
-        if @comment.save
-            redirect_back(fallback_location: root_path)
+        if !@comment.save
+            flash[:danger] = @comment.errors.full_messages.to_sentence
         end
+        redirect_back(fallback_location: root_path)
     end
-    def upvote 
-      @comment = Comment.find(params[:comment_id])
-      @comment.upvote_by current_user
-      redirect_back(fallback_location: root_path)
+    
+    def update
+    end
+    
+    def destroy
+        @comment = Comment.find(params["id"]);
+        if @comment.destroy
+            flash[:success] = t('comment.destroy.success')
+        else
+            flash[:danger] = t('comment.error')
+        end
+        redirect_back(fallback_location: root_path)
+    end
+
+    def upvote
+        flash.discard
+        if current_user.nil?
+            flash[:danger] = t('comment.vote.not_authorized')
+        else
+          @comment = Comment.find(params[:comment_id])
+          @comment.upvote_by current_user
+        end
+        redirect_back(fallback_location: root_path)
     end  
     def downvote 
-      @comment = Comment.find(params[:comment_id])
-      @comment.downvote_by current_user
-      redirect_back(fallback_location: root_path)
+        flash.discard
+        if current_user.nil?
+            flash[:danger] = t('comment.vote.not_authorized')
+        else
+          @comment = Comment.find(params[:comment_id])
+          @comment.downvote current_user
+        end
+        redirect_back(fallback_location: root_path)
     end  
     private
     def comments_params

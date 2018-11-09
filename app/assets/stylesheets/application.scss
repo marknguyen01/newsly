@@ -32,8 +32,13 @@ body {
 
 .row {
     @include media-breakpoint-down(md) {
-        padding: 0 !important;
-        margin: 0 !important;
+    }
+}
+
+.container {
+    @include media-breakpoint-down(md) {
+        margin-top: 15px;
+        padding: 0 5px;
     }
 }
 
@@ -46,14 +51,15 @@ body {
         justify-content: center;
     }
     .article-img {
-        background-position: center;
-        background-size: 100% 100%;
-        background-repeat: no-repeat;
-        height: 72px;
+        img {
+            width: 80px;
+            height: 60px;
+        }
     }
     .article-title {
-            @include media-breakpoint-down(md) {
-}
+        max-height: 2.25rem;
+        overflow-x: hidden;
+        display: block;
         margin: 0;
         text-decoration: none;
         color: #000;
@@ -68,6 +74,8 @@ body {
         text-decoration: none;
     }
     .article-action {
+        position: absolute;
+        bottom: 0;
         a {
             color: $colorRed;
         }

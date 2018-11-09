@@ -1,0 +1,9 @@
+<%= link_to upvote_path, class: "d-inline" + (!current_user.nil? && current_user.voted_up_on?(object) ? "active" : ""), method: :put do %>
+    <i class="fas fa-chevron-circle-up"></i>
+<% end %>
+<div class="vote-count d-inline">
+    <%= object.get_upvotes.size - object.get_downvotes.size %>
+</div>
+<%= link_to downvote_path, class: "d-inline" + (!current_user.nil? && current_user.voted_down_on?(object) ? "active" : ""), method: :put do %>
+    <i class="fas fa-chevron-circle-down"></i>
+<% end %>
