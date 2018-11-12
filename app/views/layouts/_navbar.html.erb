@@ -8,7 +8,7 @@
       <% if !current_user.nil? %>
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <span class="nav-link">Logged in as <strong><%= current_user.username %></strong></span>
+            <a class="nav-link" href="<%=edit_user_path(current_user)%>">Logged in as <strong><%= current_user.username %></strong></a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="<%=user_logout_path%>">Logout</a>
