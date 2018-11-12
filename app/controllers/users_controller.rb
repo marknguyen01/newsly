@@ -13,6 +13,14 @@ class UsersController < ApplicationController
       render :new
     end
   end
+  
+  def show
+    render :show
+  end
+  
+  def edit
+    render :edit
+  end
 
   private
   def users_params
