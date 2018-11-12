@@ -1,8 +1,12 @@
 <%= render("tab") %>
 
-<% if @articles.any? %>
+<% if !@articles.nil? && @articles.any? %>
     <% @articles.each do |article| %>
         <%= render("articles/article", :article => article) %>
+    <% end %>
+<% elsif !@comments.nil? && @comments.any? %>
+    <% @comments.each do |comment| %>
+        <%= render("articles/comment", :comment => comment) %>
     <% end %>
 <% else %>
     <div class="alert alert-primary my-3" role="alert">

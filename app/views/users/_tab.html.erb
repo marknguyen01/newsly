@@ -1,12 +1,15 @@
 <h2 class="my-3"> 
-    <%= current_user.username %>'s Profile Page
+    <%= current_user.username %>'s Profile Page (<%= @user.points %> points)
 </h2>
 
 <div class="btn-group" role="group" aria-label="Profile Tabs">
-    <%= link_to user_path, class: "btn btn-secondary",  method: :get do %>
-        Show
+    <%= link_to user_path(:type => "articles"), class: "btn btn-secondary",  method: :get do %>
+        ARTICLES
+    <% end%>
+    <%= link_to user_path(:type => "comments"), class: "btn btn-secondary",  method: :get do %>
+        COMMENTS
     <% end%>
     <%= link_to edit_user_path, class: "btn btn-secondary",  method: :get do %>
-        Edit
+        EDIT
     <% end%>
 </div>

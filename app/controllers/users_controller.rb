@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  helper_method :isCommentOwner?
   def new
     @user = User.new
   end
@@ -15,7 +16,13 @@ class UsersController < ApplicationController
   end
   
   def show
-    @articles = User.find(params[:id]).votes.up.for_type(Article).votables
+    @user = User.find(params[:id])
+    case params[:type]
+      when "articles"
+        @articles = @user.votes.up.for_type(Article).votables
+      when "comments"
+        @comments = @user.comments.all
+    end
     render :show
   end
   
@@ -49,5 +56,9 @@ class UsersController < ApplicationController
       flash[:danger] = "No permission"
       redirect_to root_path
     end
+  end
+  
+  private def isCommentOwner?(comment)
+    current_user.id == comment.user.id
   end
 end

@@ -7,16 +7,16 @@
     </div>
     <div class="comment-action">
         <span class="comment-vote">
-        <%= render partial: 'vote', locals: {
+        <%= render partial: 'articles/vote', locals: {
             :object => comment,
-            :upvote_path => article_comment_upvote_path(@article, comment),
-            :downvote_path => article_comment_downvote_path(@article, comment)} %>
+            :upvote_path => article_comment_upvote_path(comment.article, comment),
+            :downvote_path => article_comment_downvote_path(comment.article, comment)} %>
         </span>
         <% if isCommentOwner?(comment) %>
-            <%= link_to edit_article_comment_path(@article, comment), class: "d-inline", method: :get, remote: true do %>
+            <%= link_to edit_article_comment_path(comment.article, comment), class: "d-inline", method: :get, remote: true do %>
                 <i class="fas fa-edit"></i> Edit
             <% end %>
-            <%= link_to article_comment_path(@article, comment), class: "d-inline", method: :delete do %>
+            <%= link_to article_comment_path(comment.article, comment), class: "d-inline", method: :delete do %>
                 <i class="fas fa-trash-alt"></i> Delete
             <% end %>
         <% end %>
