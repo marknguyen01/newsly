@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
     root 'articles#index'
     
-    resources :users, only: [:new, :create, :show, :edit]
+    resources :users, only: [:new, :create, :show, :edit, :destroy]
     get '/register', to: 'users#new'
     post '/register', to: 'users#create'
     
