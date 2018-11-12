@@ -16,13 +16,17 @@ class UsersController < ApplicationController
   
   def show
     render :show
+    @user = User.find(params[:id])
+    
+    @articles = @user.votes.up.for_type(Article).votables
+    
   end
   
   def edit
     @user = User.find(params[:id])
     render :edit
   end
-
+  
   private
   def users_params
     params.require(:user).permit(:username, :email, :password, :password_confirmation)
