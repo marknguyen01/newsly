@@ -1,0 +1,35 @@
+<%= render("tab") %>
+
+<%= form_for @user do |f| %>
+
+  <div class="form-group">
+    <%= f.label :username %><br />
+    <%= f.text_field :username, autofocus: true,  :class => "form-control" %>
+  </div>
+  
+  <div class="form-group">
+    <%= f.label :email %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email", :class => "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :password %>
+    <%= f.password_field :password, autocomplete: "new-password", :class => "form-control" %>
+    <% if @minimum_password_length %>
+    <small>(<%= @minimum_password_length %> characters minimum)</small>
+    <% end %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :password_confirmation %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "new-password", :class => "form-control" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Save", :class => "btn btn-primary" %>
+  </div>
+<% end %>
+
+<%= link_to user_path, class: "btn btn-danger mt-3",  method: :destroy do %>
+    Delete my account
+<% end%>
