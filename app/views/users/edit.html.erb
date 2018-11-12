@@ -27,9 +27,8 @@
 
   <div class="actions">
     <%= f.submit "Save", :class => "btn btn-primary" %>
+    <%= link_to user_path, class: "btn btn-danger",  method: :delete do %>
+      Delete my account
+    <% end%>
   </div>
 <% end %>
-
-<%= link_to user_path, class: "btn btn-danger mt-3",  method: :destroy do %>
-    Delete my account
-<% end%>
