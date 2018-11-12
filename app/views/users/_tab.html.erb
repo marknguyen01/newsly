@@ -1,0 +1,12 @@
+<h2> 
+    <%= current_user.username %>'s Profile Page
+</h2>
+
+<div class="btn-group" role="group" aria-label="Profile Tabs">
+    <%= link_to user_path, class: "btn btn-secondary",  method: :get do %>
+        Show
+    <% end%>
+    <%= link_to edit_user_path, class: "btn btn-secondary",  method: :get do %>
+        Edit
+    <% end%>
+</div>
