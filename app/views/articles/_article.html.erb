@@ -4,7 +4,7 @@
             <img src="<%= article['imgURL'].nil? ? image_url('no_img.png') : article['imgURL'] %>" class="img-thumbnail">
         </a>
         <div class="article-vote mt-1">
-            <%= render partial: 'vote', 
+            <%= render partial: 'articles/vote', 
                 locals: {:object => article, 
                 :upvote_path => article_upvote_path(article),
                 :downvote_path => article_downvote_path(article)} %>

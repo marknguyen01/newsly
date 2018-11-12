@@ -15,16 +15,18 @@ class UsersController < ApplicationController
   end
   
   def show
+    @articles = User.find(params[:id]).votes.up.for_type(Article).votables
     render :show
-    @user = User.find(params[:id])
-    
-    @articles = @user.votes.up.for_type(Article).votables
-    
   end
   
   def edit
-    @user = User.find(params[:id])
-    render :edit
+    if current_user.id.to_s == params[:id] && !current_user.nil?
+      @user = User.find(params[:id])
+      render :edit
+    else
+      flash[:danger] = "You don't have permission to view this"
+      redirect_to root_path
+    end
   end
   
   private

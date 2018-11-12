@@ -1,5 +1,11 @@
 <%= render("tab") %>
 
-<% @articles.each do |article| %>
-<%= article.user %>
+<% if @articles.any? %>
+    <% @articles.each do |article| %>
+        <%= render("articles/article", :article => article) %>
+    <% end %>
+<% else %>
+    <div class="alert alert-primary my-3" role="alert">
+        Nothing here
+    </div>   
 <% end %>

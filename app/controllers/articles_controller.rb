@@ -1,5 +1,5 @@
 class ArticlesController < ApplicationController
-    helper_method :convertDate, :isCommentOwner?
+    helper_method :isCommentOwner?
     def show
         @article = Article.find_by(slug: params[:slug])
     end
@@ -10,26 +10,6 @@ class ArticlesController < ApplicationController
     end
     def isCommentOwner?(comment)
         current_user.id == comment.user.id
-    end
-    def convertDate(date)
-        dateNow = DateTime.now
-        dateBefore = DateTime.parse(date)
-        
-        secDiff = dateNow.to_time - dateBefore.to_time
-        minDiff = (secDiff / 60).floor
-        hourDiff = (minDiff / 60).floor
-        dayDiff = (hourDiff / 24).floor
-        # less than a minute
-        if secDiff >= 0 and secDiff <= 60
-            return secDiff.to_s;
-        # less than an hour
-        elsif minDiff > 0 and minDiff <= 60
-            return minDiff.to_s + " minutes ago"
-        elsif hourDiff > 0 and hourDiff <= 24
-            return hourDiff.to_s + " hours ago"
-        elsif dayDiff > 0 and dayDiff <= 30
-            return dayDiff.to_s + " days ago"
-        end
     end
     def createComment
         

@@ -2,7 +2,7 @@ require 'net/http'
 require 'digest'
 class ApplicationController < ActionController::Base
     before_action :new_user_session
-    helper_method :current_user_session, :current_user
+    helper_method :current_user_session, :current_user, :convertDate
     private
     def current_user_session
       return @current_user_session if defined?(@current_user_session)
@@ -80,5 +80,26 @@ class ApplicationController < ActionController::Base
             title: article['title'],
             date: article['publishedAt']
         ).slug
+    end
+    
+    def convertDate(date)
+        dateNow = DateTime.now
+        dateBefore = DateTime.parse(date)
+        
+        secDiff = dateNow.to_time - dateBefore.to_time
+        minDiff = (secDiff / 60).floor
+        hourDiff = (minDiff / 60).floor
+        dayDiff = (hourDiff / 24).floor
+        # less than a minute
+        if secDiff >= 0 and secDiff <= 60
+            return secDiff.to_s;
+        # less than an hour
+        elsif minDiff > 0 and minDiff <= 60
+            return minDiff.to_s + " minutes ago"
+        elsif hourDiff > 0 and hourDiff <= 24
+            return hourDiff.to_s + " hours ago"
+        elsif dayDiff > 0 and dayDiff <= 30
+            return dayDiff.to_s + " days ago"
+        end
     end
 end
