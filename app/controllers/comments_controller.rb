@@ -37,10 +37,14 @@ class CommentsController < ApplicationController
     
     def destroy
         @comment = Comment.find(params["id"]);
-        if @comment.destroy
-            flash[:success] = t('comment.destroy.success')
+        if isObjectOwner?(@comment)
+            if @comment.destroy
+                flash[:success] = t('comment.destroy.success')
+            else
+                flash[:danger] = t('comment.error')
+            end
         else
-            flash[:danger] = t('comment.error')
+            flash[:danger] = t('comment.not_authorized')
         end
         redirect_back(fallback_location: root_path)
     end
@@ -58,6 +62,18 @@ class CommentsController < ApplicationController
         end
         redirect_back(fallback_location: root_path)
     end  
+    
+    def update
+        @comment = Comment.find(params[:id])
+        if isObjectOwner?(@comment)
+            if @comment.update(comments_params)
+                respond_to do |format|
+                  format.json { render json: @comment }
+                end
+            end
+        end
+    end
+    
     def downvote 
         flash.discard
         if current_user.nil?

@@ -8,12 +8,6 @@ class ArticlesController < ApplicationController
         run_schedule
         @articles = Article.order("created_at DESC").page(params[:page]).per(20)
     end
-    def isCommentOwner?(comment)
-        current_user.id == comment.user.id
-    end
-    def createComment
-        
-    end
     def upvote 
         if current_user.nil?
             flash[:danger] = t('vote.not_authorized')

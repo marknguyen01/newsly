@@ -36,8 +36,9 @@ en:
   comment:
     destroy:
       success: "Comment has been deleted!"
+      not_authorized: "You don't have permission to delete this comment"
     create:
       success: "Comment has been created successfully!"
-    error: "Something went wrong!"  
+    error: "Something went wrong!"
     vote:
       not_authorized: "Please login to vote on comments."

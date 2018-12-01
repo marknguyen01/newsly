@@ -1,6 +1,6 @@
-<h2 class="my-3"> 
+<h4 class="my-3"> 
     <%= current_user.username %>'s Profile Page (<%= @user.points %> points)
-</h2>
+</h4>
 
 <div class="btn-group" role="group" aria-label="Profile Tabs">
     <%= link_to user_path(:type => "articles"), class: "btn btn-secondary",  method: :get do %>

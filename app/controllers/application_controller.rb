@@ -2,7 +2,7 @@ require 'net/http'
 require 'digest'
 class ApplicationController < ActionController::Base
     before_action :new_user_session
-    helper_method :current_user_session, :current_user, :convertDate
+    helper_method :current_user_session, :current_user, :convertDate, :isObjectOwner?
     private
     def current_user_session
       return @current_user_session if defined?(@current_user_session)
@@ -101,5 +101,9 @@ class ApplicationController < ActionController::Base
         elsif dayDiff > 0 and dayDiff <= 30
             return dayDiff.to_s + " days ago"
         end
+    end
+    
+    def isObjectOwner?(object)
+        current_user.id == object.user.id
     end
 end

@@ -1,6 +1,8 @@
 <div class="comment">
     <div class="comment-user">
-      <%= comment.user.username %> - <%= comment.user.points %> points
+       <%= link_to user_path(comment.user.id, :type => "articles"), method: :get do %>
+          <%= comment.user.username %>
+        <% end %> - <%= comment.user.points %> points
     </div>
     <div class="comment-text">
       <%= sanitize comment.text %>
@@ -12,10 +14,10 @@
             :upvote_path => article_comment_upvote_path(comment.article, comment),
             :downvote_path => article_comment_downvote_path(comment.article, comment)} %>
         </span>
-        <% if isCommentOwner?(comment) %>
-            <%= link_to edit_article_comment_path(comment.article, comment), class: "d-inline", method: :get, remote: true do %>
+        <% if isObjectOwner?(comment) %>
+            <a href="#edit<%= comment.id %>" data-id="<%= comment.id %>" class="edit-comment">
                 <i class="fas fa-edit"></i> Edit
-            <% end %>
+            </span>
             <%= link_to article_comment_path(comment.article, comment), class: "d-inline", method: :delete do %>
                 <i class="fas fa-trash-alt"></i> Delete
             <% end %>
