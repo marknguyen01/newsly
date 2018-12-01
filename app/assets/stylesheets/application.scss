@@ -30,10 +30,6 @@ body {
     }
 }
 
-.container {
-    padding-top: 15px;
-    padding-bottom: 15px;
-}
 .ql-editor {
     min-height: 6rem;
 }
@@ -93,11 +89,14 @@ body {
     }
 }
 
-.container {
+.container-fluid {
     @include media-breakpoint-down(md) {
         margin-top: 15px;
         padding: 0 5px;
     }
+    padding-top: 15px;
+    padding-bottom: 15px;
+
 }
 
 .articles {
