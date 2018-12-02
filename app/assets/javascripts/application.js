@@ -12,12 +12,14 @@
 //
 //= require rails-ujs
 //= require activestorage
-//= require turbolinks
 //= require bootstrap
 //= require quill.min
 //= require_tree .
 
 document.addEventListener("DOMContentLoaded", function(event) {
+document.querySelectorAll(".article").forEach(el => el.addEventListener("click", function(e) {
+    window.location.href = "/articles/" + this.getAttribute("data-slug");
+}));
 if(window.location.pathname.indexOf("/articles/") == 0) {
 var quillSettings = {
     modules: {

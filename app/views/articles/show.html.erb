@@ -1,4 +1,6 @@
-<%= render('article', :article => @article) %>
+
+<div id="article-body">
+  <%= render('article', :article => @article) %>
 <div class="article-comment">
   <% @article.comments.each do |comment| %>
     <%= render('comment', :comment => comment) %>
@@ -19,3 +21,5 @@
   Please login or register to leave a comment
 </div>  
 <% end %>
+
+</div>

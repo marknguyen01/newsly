@@ -2,15 +2,16 @@ class ArticlesController < ApplicationController
     helper_method :isCommentOwner?
     def show
         @article = Article.find_by(slug: params[:slug])
+        @article.increment!(:views)
     end
     
     def index
         run_schedule
         case params[:sort]
-        when "views"
+        when "controversial"
             @articles = Article.order("views DESC")
         when "comments"
-            @articles = Article.includes(:comments).order(:comments_count)
+            @articles = Article.order("comments_count DESC")
         else
             @articles = Article.order("created_at DESC")
         end    

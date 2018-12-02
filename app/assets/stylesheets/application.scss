@@ -99,14 +99,14 @@ body {
 
 }
 
-#articles {
+#articles, #article-body {
     margin: 1rem 2rem;
 }
 .article {
     margin-bottom: -1px;
     transition: border-color 1s;
     border: 1px solid rgba(0,0,0,.125);
-    
+    cursor: pointer;
     &:hover, &:focus {
         background: #f8f9fa;
     }
