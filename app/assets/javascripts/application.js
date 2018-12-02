@@ -18,14 +18,17 @@
 
 document.addEventListener("DOMContentLoaded", function(event) {
 document.querySelectorAll(".article").forEach(el => el.addEventListener("click", function(e) {
-    window.location.href = "/articles/" + this.getAttribute("data-slug");
+    if(window.location.pathname.indexOf("/articles") || window.location.pathname.indexOf("/users") == 0) 
+        window.location.href = "/articles/" + this.getAttribute("data-slug");
+    else
+        window.location.href = this.querySelector(".article-body a").getAttribute("href");
 }));
 if(window.location.pathname.indexOf("/articles/") == 0) {
 var quillSettings = {
     modules: {
         toolbar: [
             ['bold', 'italic', 'underline', 'strike'],
-            ['link', 'blockquote', 'code-block'],
+            ['link', 'blockquote'],
             [{ list: 'ordered' }, { list: 'bullet' }], ['send']
         ]
     },

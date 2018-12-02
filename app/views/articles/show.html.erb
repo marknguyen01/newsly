@@ -1,12 +1,18 @@
 
 <div id="article-body">
   <%= render('article', :article => @article) %>
-<div class="article-comment">
-  <% @article.comments.each do |comment| %>
-    <%= render('comment', :comment => comment) %>
+<div class="article-comment my-3">
+  <% if @article.comments.size > 0 %>
+    <% @article.comments.each do |comment| %>
+      <%= render('comment', :comment => comment) %>
+    <% end %>
+  <% else %>
+    <div class="border rounded p-3 my-4">
+      No comments found. Be the first to comment
+    </div>  
   <% end %>
 </div>
-<span class="mt-5">Comments (<%=@article.comments.size%>)</span>
+<span class="my-3">Comments (<%=@article.comments.size%>)</span>
 <% if !current_user.nil? %>
   <div class="comment-form mt-2">
       <%= form_for([@article, @article.comments.build], :remote => true) do |f| %>

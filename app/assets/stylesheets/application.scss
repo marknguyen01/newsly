@@ -143,6 +143,10 @@ body {
         a {
             color: $colorRed;
         }
+        > *:not(:first-child) {
+            margin-left: 1rem;
+            color: $colorGrey;
+        }
     }
 }
 .article-vote, .comment-action {

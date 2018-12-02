@@ -7,8 +7,9 @@ class CreateArticles < ActiveRecord::Migration[5.2]
       t.string :author
       t.string :title
       t.string :date
-      t.integer :views
-      t.integer :comments_count
+      t.integer :views_count, :default => 0
+      t.integer :comments_count, :default => 0
+      t.integer :votes_count, :default => 0
       t.timestamps
     end
   end
