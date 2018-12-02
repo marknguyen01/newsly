@@ -27,8 +27,26 @@
 
   <div class="actions">
     <%= f.submit "Save", :class => "btn btn-primary" %>
-    <%= link_to user_path, class: "btn btn-danger",  method: :delete do %>
+    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter">
       Delete my account
-    <% end%>
+    </button>
+    <!-- Button trigger modal -->
+
+
   </div>
+
+  <!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Are you sure?</h5>
+      </div>
+      <div class="modal-footer text-center">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
+        <%= link_to "YES", user_path, class: "btn btn-danger",  method: :delete %>
+    </div>
+    </div>
+  </div>
+</div>
 <% end %>

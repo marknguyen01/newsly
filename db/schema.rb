@@ -49,7 +49,7 @@ ActiveRecord::Schema.define(version: 2018_11_05_011352) do
     t.string "crypted_password"
     t.string "password_salt"
     t.string "persistence_token"
-    t.integer "points"
+    t.integer "points", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email", "username"], name: "index_users_on_email_and_username", unique: true
