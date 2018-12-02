@@ -45,6 +45,8 @@ class UsersController < ApplicationController
   def destroy
     authenticate_user(current_user)
     User.find(params[:id]).destroy
+    current_user_session.destroy
+    redirect_to root_path
   end
   
   private def users_params

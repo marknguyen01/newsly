@@ -1,6 +1,6 @@
 <%= render("tab") %>
 
-<%= form_for @user do |f| %>
+<%= form_for @user, :html => {:class => "m-3"} do |f| %>
 
   <div class="form-group">
     <%= f.label :username %><br />

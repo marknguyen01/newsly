@@ -1,15 +1,15 @@
-<h4 class="my-3"> 
+<h4 class="my-1 ml-3"> 
     <%= current_user.username %>'s Profile Page (<%= @user.points %> points)
 </h4>
 
-<div class="btn-group" role="group" aria-label="Profile Tabs">
-    <%= link_to user_path(:type => "articles"), class: "btn btn-secondary",  method: :get do %>
+<div class="btn-group my-3 ml-3" role="group" aria-label="Profile Tabs">
+    <%= link_to user_path(:type => "articles"), class: "btn btn-light " + (params[:type] == "articles" ? "active" : ""),  method: :get do %>
         ARTICLES
     <% end%>
-    <%= link_to user_path(:type => "comments"), class: "btn btn-secondary",  method: :get do %>
+    <%= link_to user_path(:type => "comments"), class: "btn btn-light " + (params[:type] == "comments" ? "active" : ""),  method: :get do %>
         COMMENTS
     <% end%>
-    <%= link_to edit_user_path, class: "btn btn-secondary",  method: :get do %>
+    <%= link_to edit_user_path, class: "btn btn-light " + (!params[:type] ? "active" : ""),  method: :get do %>
         EDIT
     <% end%>
 </div>
