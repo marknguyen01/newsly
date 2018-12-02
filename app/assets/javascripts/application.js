@@ -13,7 +13,12 @@
 //= require rails-ujs
 //= require activestorage
 //= require turbolinks
+//= require bootstrap
+//= require quill.min
 //= require_tree .
+
+document.addEventListener("DOMContentLoaded", function(event) {
+if(window.location.pathname.indexOf("/articles/") == 0) {
 var quillSettings = {
     modules: {
         toolbar: [
@@ -79,3 +84,6 @@ document.querySelectorAll(".edit-comment").forEach(el => el.addEventListener("cl
         }
     });
 }));
+}
+    
+});

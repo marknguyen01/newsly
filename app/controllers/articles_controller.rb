@@ -6,7 +6,15 @@ class ArticlesController < ApplicationController
     
     def index
         run_schedule
-        @articles = Article.order("created_at DESC").page(params[:page]).per(20)
+        case params[:sort]
+        when "views"
+            @articles = Article.order("views DESC")
+        when "comments"
+            @articles = Article.includes(:comments).order(:comments_count)
+        else
+            @articles = Article.order("created_at DESC")
+        end    
+        @articles = @articles.page(params[:page]).per(20)
     end
     def upvote 
         if current_user.nil?

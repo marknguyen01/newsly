@@ -1,6 +1,15 @@
-<% @articles.each do |article| %>
-    <% print article %>
-    <%= render('article', :article => article) %>
-<% end %>
-<%= paginate @articles %>
+<div class="dropdown show ml-3">
+	<button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Sort By: <%= params.has_key?(:sort) ? params[:sort].camelize : "New" %>
+	</button>
+	<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+	    <%= link_to "New", root_path(:sort => "new"), class: "dropdown-item" %>
+	    <%= link_to "Most Viewed", root_path(:sort => "views"), class: "dropdown-item" %>
+	    <%= link_to "Most Commented", root_path(:sort => "comments"), class: "dropdown-item" %>
+	    <%= link_to "Most Liked", root_path(:sort => "likes"), class: "dropdown-item" %>
+	</div>
+</div>
+<div id="articles" class="list-group">
+    <% @articles.each do |article| %><% print article %><%= render('article', :article => article) %><% end %><%= paginate @articles %>
+</div>
 

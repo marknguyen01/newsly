@@ -89,7 +89,7 @@ body {
     }
 }
 
-.container-fluid {
+#body-container {
     @include media-breakpoint-down(md) {
         margin-top: 15px;
         padding: 0 5px;
@@ -99,10 +99,20 @@ body {
 
 }
 
-.articles {
-    margin: 1em 0;
+#articles {
+    margin: 1rem 2rem;
+}
+.article {
+    margin-bottom: -1px;
     transition: border-color 1s;
-    border: 1px solid #fff;
+    border: 1px solid rgba(0,0,0,.125);
+    
+    &:hover, &:focus {
+        background: #f8f9fa;
+    }
+    &:active {
+        background: #e9ecef;
+    }
     .article-body {
         word-break: break-word;
         justify-content: center;
@@ -123,9 +133,6 @@ body {
     }
     .article-author {
         color: $colorGrey;
-    }
-    &:hover {
-        border-color: $colorGrey;
     }
     a {
         text-decoration: none;

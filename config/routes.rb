@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     resources :user_sessions, only: [:create, :destroy]
     get '/logout', to: 'user_sessions#destroy', as: :user_logout
     get '/login', to: 'user_sessions#new', as: :user_login
+    post '/login', to: 'user_sessions#create'
     # devise_for :users,  :controllers => { registrations: 'registration' }
     # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
     resources :articles, only: [:show, :index], param: :slug do

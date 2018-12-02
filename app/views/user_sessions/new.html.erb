@@ -1,4 +1,5 @@
-<div class="page-header"><h1>Sign In</h1></div>
+<div class="border rounded p-3 my-5">
+  <h4 class="text-center"><i class="fas fa-sign-in-alt faa-pulse animated fa-sm mr-2"></i>Log in</h4>
 
 <%= form_for @user_session do |f| %>
   <%= render 'layouts/errors', object: @user_session %>
@@ -20,3 +21,4 @@
 
   <%= f.submit "Log in!", class: 'btn btn-primary btn-lg' %>
 <% end %>
+</div>

@@ -19,6 +19,8 @@ ActiveRecord::Schema.define(version: 2018_11_05_011352) do
     t.string "author"
     t.string "title"
     t.string "date"
+    t.integer "views"
+    t.integer "comments_count"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
