@@ -16,14 +16,18 @@ class UsersController < ApplicationController
   end
   
   def show
-    @user = User.find(params[:id])
-    case params[:type]
+    if !User.exists?(params[:id])
+      redirect_to root_path
+    else
+      @user = User.find(params[:id])
+      case params[:type]
       when "articles"
         @articles = @user.votes.up.for_type(Article).votables
       when "comments"
         @comments = @user.comments.all
+      end
+      render :show
     end
-    render :show
   end
   
   def edit

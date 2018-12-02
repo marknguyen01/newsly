@@ -16,14 +16,7 @@
 //= require quill.min
 //= require_tree .
 
-document.addEventListener("DOMContentLoaded", function(event) {
-document.querySelectorAll(".article").forEach(el => el.addEventListener("click", function(e) {
-    if(window.location.pathname.indexOf("/articles") || window.location.pathname.indexOf("/users") == 0) 
-        window.location.href = "/articles/" + this.getAttribute("data-slug");
-    else
-        window.location.href = this.querySelector(".article-body a").getAttribute("href");
-}));
-if(window.location.pathname.indexOf("/articles/") == 0) {
+
 var quillSettings = {
     modules: {
         toolbar: [
@@ -35,21 +28,34 @@ var quillSettings = {
     placeholder: "Enter your comment",
     theme: 'snow'
 };
-var createEditor = new Quill('#editor', quillSettings);
 
-var form = document.querySelector(".comment-form form");
-var sendButton = createEditor.container.parentElement.querySelector('.ql-send');
-var textInput = form.querySelector('input[name="comment[text]"]');
+document.addEventListener("DOMContentLoaded", function(event) {
+document.querySelectorAll(".article").forEach(el => el.addEventListener("click", function(e) {
+    if(window.location.pathname.indexOf("/articles") || window.location.pathname.indexOf("/users") == 0) 
+        window.location.href = "/articles/" + this.getAttribute("data-slug");
+    else
+        window.location.href = this.querySelector(".article-body a").getAttribute("href");
+}));
+// Editor for creating a new comment
+if(window.location.pathname.indexOf("/articles/") == 0) {
+    var createEditor = new Quill('#editor', quillSettings);
+    
+    var form = document.querySelector(".comment-form form");
+    var sendButton = createEditor.container.parentElement.querySelector('.ql-send');
+    var textInput = form.querySelector('input[name="comment[text]"]');
+    
+    sendButton.addEventListener('click', function() {
+      if (createEditor.getLength() > 0) {
+        textInput.value = createEditor.root.innerHTML;
+        form.submit();
+      }
+      else {
+          alert("Please enter a comment!");
+      }
+    });
+}
 
-sendButton.addEventListener('click', function() {
-  if (createEditor.getLength() > 0) {
-    textInput.value = createEditor.root.innerHTML;
-    form.submit();
-  }
-  else {
-      alert("Please enter a comment!");
-  }
-});
+if(window.location.pathname.indexOf("/articles/") == 0 || window.location.pathname.indexOf("/users") == 0) {
 
 window.editEditor = {};
 
@@ -63,6 +69,7 @@ document.querySelectorAll(".edit-comment").forEach(el => el.addEventListener("cl
     var editEditor = window.editEditor[commentID];
     var editorParent = editEditor.container.parentElement;
     var sendButton = editorParent.querySelector('.ql-send');
+    var editButton = this;
 
     editorParent.classList.remove('inactive');
     editEditor.enable(true);
@@ -76,7 +83,7 @@ document.querySelectorAll(".edit-comment").forEach(el => el.addEventListener("cl
                 }
             });
             console.log(value);
-            xhttp.open("PUT", window.location.href + "/comments/" + commentID, true);
+            xhttp.open("PUT", "/articles/" + editButton.getAttribute("data-slug") + "/comments/" + commentID, true);
             xhttp.setRequestHeader("Content-Type", "application/json");
             xhttp.setRequestHeader("X-CSRF-Token", document.querySelector("meta[name='csrf-token']").getAttribute('content'));
             xhttp.send(value);

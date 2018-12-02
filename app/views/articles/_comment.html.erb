@@ -5,7 +5,7 @@
         <% end %> - <%= comment.user.points %> points
     </div>
     <div class="comment-text">
-      <%= sanitize comment.text %>
+      <%= sanitize comment.text, tags: %w(strong em a b i s u ul li blockquote ol) %>
     </div>
     <div class="comment-action">
         <span class="comment-vote">
@@ -15,7 +15,7 @@
             :downvote_path => article_comment_downvote_path(comment.article, comment)} %>
         </span>
         <% if isObjectOwner?(comment) %>
-            <a href="#edit<%= comment.id %>" data-id="<%= comment.id %>" class="edit-comment">
+            <a href="#edit<%= comment.id %>" data-id="<%= comment.id %>" data-slug="<%= comment.article.slug %>" class="edit-comment">
                 <i class="fas fa-edit"></i> Edit
             </span>
             <%= link_to article_comment_path(comment.article, comment), class: "d-inline", method: :delete do %>

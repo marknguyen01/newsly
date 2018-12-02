@@ -97,7 +97,7 @@ body {
     }
 }
 
-#body-container {
+#body-container, #footer-container {
     @include media-breakpoint-down(md) {
         margin-top: 15px;
         padding: 0 5px;
@@ -106,6 +106,17 @@ body {
     padding-bottom: 15px;
 
 }
+
+#footer-container {
+    background: $colorGrey;
+    color: $colorWhite;
+    
+    a {
+        color: $colorWhite;
+        text-decoration: none;
+    }
+}
+
 
 #articles, #article-body, #comments {
     margin: 1rem 2rem;
@@ -180,6 +191,12 @@ body {
     .comment-user a {
         color: $colorCyan;
         text-decoration: none;
+    }
+    blockquote {
+        border-left: 4px solid #ccc;
+        margin-bottom: 5px;
+        margin-top: 5px;
+        padding-left: 16px;
     }
 }
 .page-item {

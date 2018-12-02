@@ -1,8 +1,12 @@
 class ArticlesController < ApplicationController
     helper_method :isCommentOwner?
     def show
-        @article = Article.find_by(slug: params[:slug])
-        @article.increment!(:views_count)
+        if !Article.exists?(slug: params[:slug])
+            redirect_to root_path
+        else
+            @article = Article.find_by(slug: params[:slug])
+            @article.increment!(:views_count)
+        end
     end
     
     def index
