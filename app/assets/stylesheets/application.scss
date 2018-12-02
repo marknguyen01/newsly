@@ -53,10 +53,18 @@ body {
             border-color: darken($colorGreen, 12%) !important;
       }
       width: 100%;
-      font-size: 14px;
+      @include media-breakpoint-up(md) {
         padding: 4.5px 20px !important;
+        font-size: 14px;
+         }
         border-radius: 3px;
         &:after {
+            @include media-breakpoint-down(md) {
+                font-family: "Font Awesome 5 Free";
+                content: "\f14d";
+                top: 0;
+                left: 1px;
+            }
             content: "SEND";
             position: relative;
             bottom: 2px;
@@ -107,6 +115,7 @@ body {
     transition: border-color 1s;
     border: 1px solid rgba(0,0,0,.125);
     cursor: pointer;
+    transition: background-color 0.25s ease-in;
     &:hover, &:focus {
         background: #f8f9fa;
     }
@@ -164,8 +173,14 @@ body {
     }
 
 }
-.comment-action > * {
-    padding-right: 1rem;
+.comment {
+    .comment-action > * {
+        padding-right: 1rem;
+    }
+    .comment-user a {
+        color: $colorCyan;
+        text-decoration: none;
+    }
 }
 .page-item {
     .page-link {
