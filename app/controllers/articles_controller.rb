@@ -21,7 +21,7 @@ class ArticlesController < ApplicationController
         else
             @articles = Article.order("created_at DESC")
         end    
-        @articles = @articles.page(params[:page]).per(20)
+        @articles = @articles.page(params[:page]).per(10)
     end
     def upvote 
         if current_user.nil?
